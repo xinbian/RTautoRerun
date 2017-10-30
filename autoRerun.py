@@ -1,16 +1,11 @@
-#this code delete some fields from hdf5 file
-#this can be used to delete "blow up results"
 
 import h5py
 import os
 import os.path
 
-curfilePath = os.path.abspath(__file__)
-curDir = os.path.abspath(os.path.join(curfilePath,os.pardir))
-parentDir = os.path.abspath(os.path.join(curDir,os.pardir)) 
 
 inFile='tests_single_new.h5'
-mylist = [parentDir,'/',inFile]
+mylist = inFile
 delimiter = ''
 filepath = delimiter.join(mylist)
 
@@ -39,23 +34,23 @@ def get_LatestTime(Fields):
 timestep = get_LatestTime(Fields)
 
 #line 36 change boolen rerun
-f = open('parameter.d', 'r')
+f = open('parameter_2D.d', 'r')
 lines = f.readlines()
-lines[36-1] = False
+lines[36-1] = '.false.\n'
 f.close()
 
-f = open('parameter.d', 'w')
-lines = f.writelines()
+f = open('parameter_2D.d', 'w')
+f.writelines(lines)
 f.close()
 
 #line 38 change timestep
-f = open('parameter.d', 'r')
+f = open('parameter_2D.d', 'r')
 lines = f.readlines()
-lines[38-1] = timestep
+lines[38-1] = str(timestep)+'\n'
 f.close()
 
-f = open('parameter.d', 'w')
-lines = f.writelines()
+f = open('parameter_2D.d', 'w')
+f.writelines(lines)
 f.close()
 
 
